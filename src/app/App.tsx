@@ -5,18 +5,23 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+
+import AppHeader from './header';
 import HomePage from 'pages/home';
 import StateViewPage from 'pages/state-view';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/states/:stateId" component={StateViewPage} />
-        <Redirect to="/" />
-      </Switch>
-    </BrowserRouter>
+    <main>
+      <AppHeader />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/states/:stateId" component={StateViewPage} />
+          <Redirect to="/" />
+        </Switch>
+      </BrowserRouter>
+    </main>
   );
 }
 
