@@ -8,6 +8,7 @@ import {
 import { Provider } from 'react-redux';
 
 import AppHeader from 'components/header';
+import Spinner from 'components/spinner';
 import HomePage from 'pages/home';
 import StateViewPage from 'pages/state-view';
 import store from '../store';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/states/:stateId" component={StateViewPage} />
             <Redirect to="/" />
           </Switch>
+          <Spinner />
         </main>
       </Provider>
     </BrowserRouter>
