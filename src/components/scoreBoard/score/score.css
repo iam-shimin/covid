@@ -21,5 +21,6 @@
 @media screen and (min-width: 950px) {
 	.score-board {
 		width: unset;
+		margin: unset;
 	}
 }
