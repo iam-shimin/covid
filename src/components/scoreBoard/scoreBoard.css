@@ -1,0 +1,11 @@
+.scores {
+	display: flex;
+	padding: 3em 0em;
+	flex-wrap: wrap;
+}
+
+@media screen and (min-width: 950px) {
+	.scores {
+		justify-content: space-around;
+	}
+}

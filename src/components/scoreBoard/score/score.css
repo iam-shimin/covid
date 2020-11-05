@@ -1,0 +1,25 @@
+.score-board {
+	display: flex;
+	flex-direction: column;
+	font-weight: bold;
+	border: solid 2px;
+	border-radius: 0.3em;
+	padding: 0.5em 3em;
+	width: 100%;
+	margin: 0.3em;
+}
+
+.score-board-label {
+	font-size: 1.2rem;
+}
+
+.score-board-count {
+	font-weight: bolder;
+	font-size: 2rem;
+}
+
+@media screen and (min-width: 950px) {
+	.score-board {
+		width: unset;
+	}
+}
