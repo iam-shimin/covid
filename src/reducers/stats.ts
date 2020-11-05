@@ -1,12 +1,27 @@
-export default function statsReducer(state: any, action: any) {
+import {
+	STATS_LOADING,
+	STATS_ERROR,
+	STATS_SUCCESS
+} from '../constants';
+
+const initialState: IStatsReduxState = {
+	error: null,
+	isLoading: false,
+	data: null
+}
+
+export default function statsReducer(
+	state: IStatsReduxState = initialState,
+	action: StatsAction
+): IStatsReduxState {
 	switch (action.type) {
-		case 'STAT_LOADING':
-			break;
-		case 'STAT_SUCCESS':
-			break;
-		case 'STAT_ERROR':
-			break;
+		case STATS_LOADING:
+			return {...state, isLoading: true};
+		case STATS_SUCCESS:
+			return {...state, isLoading: false, data: action.payload};
+		case STATS_ERROR:
+			return {...state, isLoading: false, error: action.error};
 		default:
-			throw new Error(`Unexpected Action Type: '${action.type}'`);
+			return state;
 	}
 }
