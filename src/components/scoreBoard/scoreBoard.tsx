@@ -1,4 +1,5 @@
 import React from 'react';
+import { IStatForState } from 'reducers/store';
 
 import Score from './score';
 import './scoreBoard.css';
@@ -20,6 +21,7 @@ export default function ScoreBoard({data}: ScoreboardProps) {
 	return (
 		<div className="scores">
 			{itemsToShowScores.map(item => <Score
+				key={item}
 				color={item === 'recovered'? 'green': 'red'}
 				label={scoreLabels[item]}
 				count={data[item]} />)}
