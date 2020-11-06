@@ -1,11 +1,5 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { Data } from 'plotly.js';
-
-interface Line {
-	name: string,
-	data: number[]
-}
 
 export default function LineChart() {
 
