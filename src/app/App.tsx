@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import AppHeader from 'components/header';
 import Spinner from 'components/spinner';
 import HomePage from 'pages/home';
-import StateViewPage from 'pages/state-view';
+// import StateViewPage from 'pages/stateView';
 import store from '../store';
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
         <main>
           <AppHeader />
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/states/:stateId" component={StateViewPage} />
+            <Route path="/:stateId?" exact component={HomePage} />
+            {/* <Route path="/states/:stateId" component={StateViewPage} /> */}
             <Redirect to="/" />
           </Switch>
           <Spinner />
