@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { IStatsReduxState } from 'reducers/store';
 
 import './spinner.css';
 
