@@ -1,0 +1,13 @@
+.ss-tooltip em {
+	font-size: 1rem;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.ss-tooltip span {
+	font-weight: bolder;
+}
+
+.ss-tooltip small {
+	color: #888;
+}
