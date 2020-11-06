@@ -7,6 +7,7 @@ import {
 	STATS_ERROR,
 	STATS_SUCCESS
 } from '../constants';
+import { IStatsReduxState, StatsAction } from 'reducers/store';
 
 export default function loadStats(): ThunkAction<void, IStatsReduxState, unknown, StatsAction> {
 	return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
