@@ -1,6 +1,8 @@
+import { INDIAN_STATE_LATLNG } from './../constants';
+
 interface IStatForState {
 	state: string,
-	statecode: string,
+	statecode: keyof typeof INDIAN_STATE_LATLNG,
 	active: string,
 	confirmed: string,
 	deaths: string,
