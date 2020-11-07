@@ -58,10 +58,9 @@ function Home({ statsdata, loadStats, match }: HomePageProps) {
 
 	if (view === 'pie') {
 		const selectedData = stateData? stateData: totalData;
-		const labels = ['active', 'confirmed', 'deaths', 'recovered'];
-		const labels_ = ['active', 'confirmed', 'deaths', 'recovered'] as const;
-		const values = labels_.map(l => parseInt(selectedData[l]));
-		activeView = <PieChart labels={labels} values={values} />;
+		const labels = ['active', 'confirmed', 'deaths', 'recovered'] as const;
+		const values = labels.map(l => parseInt(selectedData[l]));
+		activeView = <PieChart labels={labels as unknown as string[]} values={values} />;
 	} else if (view === 'line') {
 		activeView = <LineChart />;
 	}
