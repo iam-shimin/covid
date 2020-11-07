@@ -2,14 +2,6 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 
 export default function LineChart() {
-
-	// let data = lines.map(line => ({
-	// 	name: line.name,
-	// 	type: 'scatter',
-	// 	x: line.data.map((_: any, i: number) => i),
-	// 	y: line.data
-	// }));
-	
 	return (
 		<Plot
 			data={['active', 'confirmed', 'deaths', 'recovered'].map(i => ({
