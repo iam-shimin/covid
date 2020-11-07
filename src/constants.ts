@@ -2,10 +2,6 @@ export const STATS_LOADING = 'STATS_LOADING';
 export const STATS_ERROR = 'STATS_ERROR';
 export const STATS_SUCCESS = 'STATS_SUCCESS';
 
-export const STAT_DISTRICT_LOADING = 'STAT_DISTRICT_LOADING';
-export const STAT_DISTRICT_ERROR = 'STAT_DISTRICT_ERROR';
-export const STAT_DISTRICT_SUCCESS = 'STAT_DISTRICT_SUCCESS';
-
 type LatLng = [number, number];
 
 export const INDIAN_STATE_LATLNG = {
