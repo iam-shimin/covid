@@ -1,0 +1,10 @@
+.error-message {
+	position: absolute;
+	margin: 0;
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	color: #474747;
+	font-size: 4.7rem;
+	transform: translate(-50%, -50%);
+}
