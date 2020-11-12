@@ -8,14 +8,18 @@ import CountryMap from 'components/countryMap';
 import MapMarker from 'components/mapMarker';
 import PieChart from 'components/pieChart';
 import LineChart from 'components/lineChart';
+import AppHeader from 'components/header';
 import { INDIAN_STATE_LATLNG } from '../../constants';
 import loadStats from 'actions/states';
 import { IStatsReduxState } from 'reducers/store';
 import './home.css';
+import AppError from 'components/appError/appError';
 
 
 interface StateProps {
-	statsdata: IStatsReduxState["data"] 
+	statsdata: IStatsReduxState["data"],
+	timeseriesData: any,
+	error: IStatsReduxState["error"]
 }
 
 interface ActionProps {
@@ -28,60 +32,65 @@ interface RouterProps {
 
 type HomePageProps = StateProps & ActionProps & RouterProps;
 
-type ViewTypes = 'map' | 'pie' | 'line';
-
-function Home({ statsdata, loadStats, match }: HomePageProps) {
+function Home({
+	statsdata,
+	timeseriesData,
+	error,
+	loadStats,
+	match
+}: HomePageProps) {
 	React.useEffect(() => loadStats(), [loadStats]);
-	const [view, setView] = React.useState<ViewTypes>('map');
 	
+	if (error)
+		return <AppError error={error} />;
+
 	if (statsdata === null) 
-	return null;
+		return null;
 	
 	const stateId: string | undefined = (match.params as any).stateId;
 	const [totalData, ...restData] = statsdata;
 	const stateData = (stateId !== undefined) && restData.find(item => item.statecode === stateId);
 	const isStateIdInvalid = stateData === undefined;
 
-	function handleView(event: React.ChangeEvent<HTMLSelectElement>) {
-		const value = event.target.value as ViewTypes;
-		setView(value);
-	}
+	const selectedData = stateData? stateData: totalData;
+	const labels = ['active', 'confirmed', 'deaths', 'recovered'] as const;
+	const values = labels.map(l => parseInt(selectedData[l]));
 
-	let activeView = (
-		<CountryMap center={INDIAN_STATE_LATLNG[restData[0].statecode]} className="hb-map">
-			{restData.map(stateData => <MapMarker
-				key={stateData.statecode}
-				position={INDIAN_STATE_LATLNG[stateData.statecode]}
-				data={stateData} />)}
-		</CountryMap>
-	);
-
-	if (view === 'pie') {
-		const selectedData = stateData? stateData: totalData;
-		const labels = ['active', 'confirmed', 'deaths', 'recovered'] as const;
-		const values = labels.map(l => parseInt(selectedData[l]));
-		activeView = <PieChart labels={labels as unknown as string[]} values={values} />;
-	} else if (view === 'line') {
-		activeView = <LineChart />;
-	}
+	const mapCenter = stateData
+		? INDIAN_STATE_LATLNG[stateData.statecode]
+		: INDIAN_STATE_LATLNG[restData[0].statecode];
 
 	return (
 		<>
+			<AppHeader>
+				<StatesList listData={restData} className="hb-statelist" />
+			</AppHeader>
 			<InvalidURLMessage show={isStateIdInvalid} />
 
-			<ScoreBoard data={totalData} />
-			{stateData !== false && (
-				<div style={{padding: '0 10%'}}>
-					<h1>{stateData?.state}</h1>
-					<p>{stateData?.statenotes}</p>
-				</div>
-			)}
-
-			<SelectView onChange={handleView} />
+			<div style={{display: 'flex', alignItems: 'center'}}>
+				{stateData !== false && (
+					<div style={{padding: '0 10%'}}>
+						<h1>{stateData?.state}</h1>
+					</div>
+				)}
+				<ScoreBoard data={selectedData} />
+			</div>
 
 			<div className="home-body">
-				<StatesList listData={restData} className="hb-statelist" />
-				{activeView}
+				<CountryMap center={mapCenter} key={JSON.stringify(mapCenter)} className="hb-map">
+					{stateData
+						? <MapMarker
+						autoPan
+						key={stateData.statecode}
+						position={INDIAN_STATE_LATLNG[stateData.statecode]}
+						data={stateData} />
+						: restData.map(stateData => <MapMarker
+						key={stateData.statecode}
+						position={INDIAN_STATE_LATLNG[stateData.statecode]}
+						data={stateData} />)}
+				</CountryMap>
+				<PieChart labels={labels as unknown as string[]} values={values} />
+				<LineChart data={timeseriesData.slice(0, 10)} />
 			</div>
 		</>
 	);
@@ -98,18 +107,11 @@ function InvalidURLMessage({ show }: { show: boolean }) {
 	)
 }
 
-function SelectView({ onChange }: { onChange: React.EventHandler<React.ChangeEvent> }) {
-	return (
-		<select name="view" defaultValue="map" onChange={onChange} style={{display: 'block', marginBottom: '1rem', marginLeft: '50%'}}>
-			<option value="map">Map</option>
-			<option value="pie">Pie Chart</option>
-			<option value="line">Line Chart</option>
-		</select>
-	)
-}
 
 const mapStateToProps = (state: IStatsReduxState) => ({
-	statsdata: state.data
+	statsdata: state.data,
+	timeseriesData: state.timeseries,
+	error: state.error
 });
 
 const mapDispatchToProps = {

@@ -8,9 +8,9 @@
 		flex-direction: row;
 	}
 	.hb-statelist {
-		width: 42%;
-		padding: 0 5%;
+		padding: 0.2rem 5%;
 		box-sizing: border-box;
+		margin-left: auto;
 	}
 	.hb-map {
 		margin: 0 1%;
