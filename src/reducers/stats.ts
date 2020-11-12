@@ -8,7 +8,8 @@ import { IStatsReduxState, StatsAction } from './store';
 const initialState: IStatsReduxState = {
 	error: null,
 	isLoading: false,
-	data: null
+	data: null,
+	timeseries: null
 }
 
 export default function statsReducer(
@@ -19,7 +20,12 @@ export default function statsReducer(
 		case STATS_LOADING:
 			return {...state, isLoading: true};
 		case STATS_SUCCESS:
-			return {...state, isLoading: false, data: action.payload};
+			return {
+				...state,
+				isLoading: false,
+				data: action.payload.statewise,
+				timeseries: action.payload.cases_time_series
+			};
 		case STATS_ERROR:
 			return {...state, isLoading: false, error: action.error};
 		default:

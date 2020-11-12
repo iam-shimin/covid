@@ -14,7 +14,8 @@ interface IStatForState {
 interface IStatsReduxState {
 	error: null | Error,
 	isLoading: boolean,
-	data: null | IStatForState[]
+	data: null | IStatForState[],
+	timeseries: null | any[]
 }
 
 interface LoadingAction {
@@ -28,7 +29,10 @@ interface ErrorAction {
 
 interface SuccessAction {
 	type: 'STATS_SUCCESS',
-	payload: IStatForState[]
+	payload: {
+		statewise: IStatForState[],
+		cases_time_series: any
+	}
 }
 
 type StatsAction = LoadingAction | ErrorAction | SuccessAction;
