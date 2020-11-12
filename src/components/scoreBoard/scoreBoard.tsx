@@ -12,17 +12,23 @@ export default function ScoreBoard({data}: ScoreboardProps) {
 
 	const itemsToShowScores = [	'active', 'confirmed', 'deaths', 'recovered' ] as const;
 	const scoreLabels = {
-		active: 'Total Active Cases',
-		confirmed: 'Total Confirmed Cases',
-		deaths: 'Total Deaths',
-		recovered: 'Total Recovered'
-	}
+		active: 'Active Cases',
+		confirmed: 'Confirmed Cases',
+		deaths: 'Deaths',
+		recovered: 'Recovered'
+	};
+	const labelColors = {
+		active: 'blue',
+		confirmed: 'orange',
+		deaths: 'red',
+		recovered: 'green'
+	};
 
 	return (
 		<div className="scores">
 			{itemsToShowScores.map(item => <Score
 				key={item}
-				color={item === 'recovered'? 'green': 'red'}
+				color={labelColors[item]}
 				label={scoreLabels[item]}
 				count={data[item]} />)}
 		</div>
