@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './header.css';
 
 
-function Header() {
+function Header({ children }: React.HTMLProps<HTMLDivElement>) {
 	return (
 		<header>
 			<Link to="/" style={{textDecoration: 'none'}}>
@@ -13,6 +13,8 @@ function Header() {
 					<span className="wh-txt">india</span>
 				</h1>
 			</Link>
+
+			{children}
 		</header>
 	)
 }
