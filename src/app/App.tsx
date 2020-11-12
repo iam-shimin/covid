@@ -7,10 +7,9 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import AppHeader from 'components/header';
+// import AppHeader from 'components/header';
 import Spinner from 'components/spinner';
 import HomePage from 'pages/home';
-// import StateViewPage from 'pages/stateView';
 import store from '../store';
 
 function App() {
@@ -18,10 +17,9 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <main>
-          <AppHeader />
+          {/* <AppHeader /> */}
           <Switch>
             <Route path="/:stateId?" exact component={HomePage} />
-            {/* <Route path="/states/:stateId" component={StateViewPage} /> */}
             <Redirect to="/" />
           </Switch>
           <Spinner />
