@@ -1,6 +1,8 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 
+import { PLOT_LAYOUT } from '../../constants';
+
 export default function LineChart({ data }: { data: any }) {
 
 	if (!Array.isArray(data)) {
@@ -22,10 +24,7 @@ export default function LineChart({ data }: { data: any }) {
 				...genXY(fields[i], data)
 			}))}
 
-			layout={{
-				height: 400,
-				width: 500
-		}} />
+			layout={PLOT_LAYOUT} />
 	)
 }
 
@@ -35,8 +34,4 @@ function genXY(key: string, data: any[]) {
 		x: data.map(i => i.dateymd),
 		y: data.map(i => parseInt(i[key]))
 	};
-	// {
-	// 	x: Array.from({length: 5}, () => data),
-	// 	y: Array.from({length: 5}, () => Math.floor(Math.random() * 1000))
-	// }
 }

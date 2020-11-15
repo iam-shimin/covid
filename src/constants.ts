@@ -2,6 +2,11 @@ export const STATS_LOADING = 'STATS_LOADING';
 export const STATS_ERROR = 'STATS_ERROR';
 export const STATS_SUCCESS = 'STATS_SUCCESS';
 
+export const PLOT_LAYOUT = {
+	height: 300,
+	width: 350
+};
+
 type LatLng = [number, number];
 
 export const INDIAN_STATE_LATLNG = {
