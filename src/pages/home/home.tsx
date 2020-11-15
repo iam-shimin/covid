@@ -5,10 +5,10 @@ import { match } from 'react-router';
 import ScoreBoard from 'components/scoreBoard';
 import StatesList from 'components/statesList';
 import AppHeader from 'components/header';
+import { Spinner } from 'components/spinner';
 import { IStatsReduxState } from 'reducers/store';
 import './home.css';
 import AppError from 'components/appError/appError';
-import Visualisations from './visualise';
 
 
 interface StateProps {
@@ -23,6 +23,8 @@ interface RouterProps {
 }
 
 type HomePageProps = StateProps & RouterProps;
+
+const Visualisations = React.lazy(() => import('./visualise'));
 
 function Home({
 	statsdata,
@@ -60,11 +62,13 @@ function Home({
 				<ScoreBoard data={selectedData} />
 			</div>
 
-			<Visualisations
-				stateData={stateData}
-				selectedData={selectedData}
-				restData={restData}
-				timeseriesData={timeseriesData} />
+			<React.Suspense fallback={<Spinner isLoading />}>
+				<Visualisations
+					stateData={stateData}
+					selectedData={selectedData}
+					restData={restData}
+					timeseriesData={timeseriesData} />
+			</React.Suspense>
 		</>
 	);
 }
