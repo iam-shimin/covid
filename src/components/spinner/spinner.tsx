@@ -8,7 +8,7 @@ interface StateProps {
 	isLoading: boolean
 }
 
-function Spinner({isLoading}: StateProps) {
+export function Spinner({isLoading}: StateProps) {
 	return isLoading
 		?	<div className="spinner" />
 		:	null;
