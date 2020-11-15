@@ -24,7 +24,7 @@ interface RouterProps {
 
 type HomePageProps = StateProps & RouterProps;
 
-const Visualisations = React.lazy(() => import(/* webpackPreload: true */ './visualise'));
+const Visualisations = React.lazy(() => import('./visualise'));
 
 function Home({
 	statsdata,
