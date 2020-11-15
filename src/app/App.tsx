@@ -5,28 +5,35 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
-// import AppHeader from 'components/header';
 import Spinner from 'components/spinner';
 import HomePage from 'pages/home';
-import store from '../store';
+import loadStats from 'actions/states';
 
-function App() {
+interface AppProps {
+  loadStats: React.EffectCallback
+}
+
+function App({ loadStats }: AppProps) {
+  
+  React.useLayoutEffect(loadStats, [loadStats]);
+
   return (
     <BrowserRouter>
-      <Provider store={store}>
         <main>
-          {/* <AppHeader /> */}
           <Switch>
             <Route path="/:stateId?" exact component={HomePage} />
             <Redirect to="/" />
           </Switch>
           <Spinner />
         </main>
-      </Provider>
     </BrowserRouter>
   );
 }
 
-export default App;
+const mapDispatchToProps = {
+	loadStats
+}
+
+export default connect(null, mapDispatchToProps)(App);

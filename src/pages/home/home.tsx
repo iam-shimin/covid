@@ -10,7 +10,6 @@ import PieChart from 'components/pieChart';
 import LineChart from 'components/lineChart';
 import AppHeader from 'components/header';
 import { INDIAN_STATE_LATLNG } from '../../constants';
-import loadStats from 'actions/states';
 import { IStatsReduxState } from 'reducers/store';
 import './home.css';
 import AppError from 'components/appError/appError';
@@ -22,24 +21,19 @@ interface StateProps {
 	error: IStatsReduxState["error"]
 }
 
-interface ActionProps {
-	loadStats: React.EffectCallback
-}
 
 interface RouterProps {
 	match: match
 }
 
-type HomePageProps = StateProps & ActionProps & RouterProps;
+type HomePageProps = StateProps & RouterProps;
 
 function Home({
 	statsdata,
 	timeseriesData,
 	error,
-	loadStats,
 	match
 }: HomePageProps) {
-	React.useEffect(() => loadStats(), [loadStats]);
 	
 	if (error)
 		return <AppError error={error} />;
@@ -114,8 +108,5 @@ const mapStateToProps = (state: IStatsReduxState) => ({
 	error: state.error
 });
 
-const mapDispatchToProps = {
-	loadStats
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
