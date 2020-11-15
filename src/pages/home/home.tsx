@@ -62,7 +62,7 @@ function Home({
 				<ScoreBoard data={selectedData} />
 			</div>
 
-			<React.Suspense fallback={<Spinner isLoading />}>
+			<React.Suspense fallback={<Spinner isLoading color="green" />}>
 				<Visualisations
 					stateData={stateData}
 					selectedData={selectedData}

@@ -5,12 +5,13 @@ import { IStatsReduxState } from 'reducers/store';
 import './spinner.css';
 
 interface StateProps {
-	isLoading: boolean
+	isLoading: boolean,
+	color?: string
 }
 
-export function Spinner({isLoading}: StateProps) {
+export function Spinner({isLoading, color = '#000'}: StateProps) {
 	return isLoading
-		?	<div className="spinner" />
+		?	<div className="spinner" style={{color}} />
 		:	null;
 }
 
