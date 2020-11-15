@@ -1,5 +1,4 @@
-import { AnyAction } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { Dispatch } from 'redux';
 
 import fetchStats from 'api/stats';
 import {
@@ -7,16 +6,12 @@ import {
 	STATS_ERROR,
 	STATS_SUCCESS
 } from '../constants';
-import { IStatsReduxState, StatsAction } from 'reducers/store';
 
-export default function loadStats(): ThunkAction<void, IStatsReduxState, unknown, StatsAction> {
-	return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+export default function loadStats() {
+	return (dispatch: Dispatch) => {
 		dispatch({type: STATS_LOADING});
-		try {
-			const payload = await fetchStats();
-			dispatch({type: STATS_SUCCESS, payload})
-		} catch (error) {
-			dispatch({type: STATS_ERROR, error})
-		}
+		fetchStats()
+			.then(payload => dispatch({type: STATS_SUCCESS, payload}))
+			.catch(error => dispatch({type: STATS_ERROR, error}));
 	}
 }
