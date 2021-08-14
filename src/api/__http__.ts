@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api.covid19india.org';
+axios.defaults.baseURL = 'https://data.covid19india.org';
 
 export default axios.get;
